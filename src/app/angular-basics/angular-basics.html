@@ -1,0 +1,6 @@
+<h3>working model</h3>
+<input type="text" #inpname class="txt" placeholder="enter name" [(ngModel)]="name" />
+<button class="submit" (click)="onClickSUbmit(inpname.value)">Submit</button>
+<br><br>
+
+<h6>{{name}}</h6>
