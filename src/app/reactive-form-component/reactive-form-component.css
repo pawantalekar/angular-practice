@@ -1,0 +1,25 @@
+.card {
+    padding: 20px;
+    background-color: #000000;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+}
+
+.card h2,
+.card h3,
+.card label {
+    color: #ffffff;
+}
+
+.card div {
+    background-color: #000000;
+}
+
+.shipper-form {
+    background-color: #000000;
+}
+
+button {
+    margin-top: 10px;
+}

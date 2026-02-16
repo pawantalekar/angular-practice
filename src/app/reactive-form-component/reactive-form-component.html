@@ -1,0 +1,134 @@
+<div class="card">
+    <h2>Rates Table with Bulk Margin Edit</h2>
+
+    <!-- Shipper Information Form -->
+    <div class="shipper-form" style="margin-bottom: 2rem;" *ngIf="showComponent">
+        <h3>Shipper Information</h3>
+        <form [formGroup]="shipperForm">
+            <div class="grid">
+                <div class="col-12 md:col-6 field">
+                    <label for="shipperName" class="field-required">Shipper Name</label>
+                    <p-autoComplete id="shipperName" formControlName="shipperName" [suggestions]="filteredLocations"
+                        (completeMethod)="filterLocations($event)" (onSelect)="onLocationSelect($event)"
+                        (onInput)="onShipperNameInput()" (onClear)="clearShipperFields()" [showClear]="true"
+                        [dropdown]="true" placeholder="Type to search by name, city, state, or zip"
+                        [style]="{'width': '100%'}" [inputStyle]="{'width': '100%'}">
+                        <ng-template pTemplate="header">
+                            <div
+                                style="padding: 0.5rem; font-style: italic; color: #6c757d; border-bottom: 1px solid #dee2e6;">
+                                Continue typing to enter manually
+                            </div>
+                        </ng-template>
+                        <ng-template let-location pTemplate="item">
+                            <div *ngIf="location.isManualEntry; else savedLocation"
+                                style="padding: 0.5rem; font-style: italic; color: #007bff; border-bottom: 1px solid #dee2e6;">
+                                <i class="pi pi-pencil" style="margin-right: 0.5rem;"></i>
+                                Enter manually: "{{ location.companyName }}"
+                            </div>
+                            <ng-template #savedLocation>
+                                <div>
+                                    <div style="font-weight: 600;">{{ location.companyName }}</div>
+                                    <div style="font-size: 0.875rem; color: #6c757d;">
+                                        {{ location.address1 }}, {{ location.city }}, {{ location.state }} {{
+                                        location.zip }}
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </ng-template>
+                    </p-autoComplete>
+                    <ntg-om-print-errors [control]="shipperForm.get('shipperName')"
+                        fieldName="Shipper Name"></ntg-om-print-errors>
+                </div>
+                <div class="col-12 md:col-6 field">
+                    <label for="address1" class="field-required">Address 1</label>
+                    <p-autoComplete id="address1" formControlName="address1" [suggestions]="filteredAddressLocations"
+                        (completeMethod)="filterAddressLocations($event)" (onSelect)="onAddressSelect($event)"
+                        (onInput)="onAddressInput()" [dropdown]="true" [readonly]="isReadOnly"
+                        placeholder="Select address from suggestions" [style]="{'width': '100%'}"
+                        [inputStyle]="{'width': '100%'}">
+                        <ng-template let-location pTemplate="item">
+                            <div>
+                                <div style="font-weight: 600;">{{ location.companyName }}</div>
+                                <div style="font-size: 0.875rem; color: #6c757d;">
+                                    {{ location.address1 }}, {{ location.city }}, {{ location.state }} {{ location.zip
+                                    }}
+                                </div>
+                            </div>
+                        </ng-template>
+                    </p-autoComplete>
+                    <ntg-om-print-errors [control]="shipperForm.get('address1')"
+                        fieldName="Address 1"></ntg-om-print-errors>
+                </div>
+            </div>
+            <div class="grid">
+                <div class="col-12">
+                    <button pButton label="Save" type="button" (click)="saveShipperData()" class="p-button-success"
+                        [disabled]="shipperForm.invalid">
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <p-table [value]="rates" selectionMode="multiple" [(selection)]="selectedRates"
+        [tableStyle]="{ 'min-width': '50rem' }">
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 3rem"><p-tableHeaderCheckbox></p-tableHeaderCheckbox></th>
+                <th>
+                    <div style="display: flex; flex-direction: column; gap: 8px;">
+                        <button pButton label="Edit Margins" class="p-button-info p-button-sm" type="button"
+                            [disabled]="selectedRates.length === 0"
+                            (click)="openBulkMarginDialog(); $event.stopPropagation()">
+                        </button>
+                        <span>CARRIER</span>
+                    </div>
+                </th>
+                <th>Total Rate</th>
+                <th>MARGIN</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rate>
+            <tr>
+                <td><p-tableCheckbox [value]="rate"></p-tableCheckbox></td>
+                <td>{{ rate.carrier }}</td>
+                <td>{{ rate.totalRate | currency:'USD' }}</td>
+                <td>
+                    <p-inputNumber [(ngModel)]="rate.margin" [min]="0.01" [max]="99" suffix="%"
+                        mode="decimal"></p-inputNumber>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+    <!-- Bulk Margin Dialog -->
+    <p-dialog [(visible)]="displayUpdateMarginDialog" [modal]="true" [style]="{ width: '500px' }" header="Edit Margin">
+        <div>
+            <p class="description-text">
+                The entered margin will be applied to all selected carriers. You may still update individual margins
+                afterward.
+            </p>
+            <div class="grid">
+                <div class="col-12 field inputdisplay">
+                    <label for="marginPercentage" class="field-required">Margin %</label>
+                    <form [formGroup]="bulkMarginForm">
+                        <p-inputNumber id="marginPercentage" formControlName="margin" placeholder="Enter margin %"
+                            [minFractionDigits]="2" [maxFractionDigits]="2" mode="decimal" suffix="%"
+                            class="inputdisplay"
+                            (onInput)="bulkMarginForm.get('margin')?.markAsTouched(); bulkMarginForm.get('margin')?.updateValueAndValidity()">
+                        </p-inputNumber>
+                    </form>
+                    <ntg-om-print-errors [control]="bulkMarginForm.get('margin')"
+                        fieldName="Margin"></ntg-om-print-errors>
+                </div>
+            </div>
+        </div>
+        <ng-template pTemplate="footer">
+            <div class="flex justify-content-center">
+                <button pButton label="Cancel" (click)="closeDialog()" class="p-button-text"></button>
+                <button type="submit" pButton label="Save" (click)="applyBulkMargin()"
+                    [disabled]="bulkMarginForm.invalid" class="p-button-sm mr-0"></button>
+            </div>
+        </ng-template>
+    </p-dialog>
+</div>
