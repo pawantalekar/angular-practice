@@ -1,0 +1,64 @@
+<div class="container">
+    <div class="d-flex justify-content-center align-items-center min-vh-100">
+        <form class="custom-form" #form="ngForm" >
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputEmail4">Email</label>
+                    <input type="email" required #email="ngModel" name="email" [(ngModel)]="userObj.email" class="form-control">
+                    <div class="text-danger">
+                        @if (email.errors?.['required'] && email.touched) {
+                            <span>Email is required</span>
+                        }
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputPassword4">Password</label>
+                    <input type="password" required #password="ngModel" minlength="8" name="password" [(ngModel)]="userObj.Password" class="form-control">
+                    <div class="text-danger"> 
+                        @if(password.errors?.['required'] && password.touched){
+                            <span>Password is required</span>
+                        }
+
+                        @if (password.errors?.['minlength'] && password.touched) {
+                            <span>Password should be minimum 8 characters</span>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputAddress">Address</label>
+                <input type="text" name="address" [(ngModel)]="userObj.address" class="form-control">
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputCity">City</label>
+                    <input type="text" name="city" [(ngModel)]="userObj.city" class="form-control">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="inputState">State</label>
+                    <select name="state" [(ngModel)]="userObj.state" class="form-control">
+                        <option selected>Choose...</option>
+                        <option>Gujrat</option>
+                        <option>UP</option>
+                        <option>MP</option>
+                        <option>Maharashtra</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="inputZip">Zip</label>
+                    <input type="text" name="zip" [(ngModel)]="userObj.zip" class="form-control" id="inputZip">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="isAgree" [(ngModel)]="userObj.isAgree"
+                        id="gridCheck">
+                    <label class="form-check-label" for="gridCheck">
+                        Check me out
+                    </label>
+                </div>
+            </div>
+            <button type="submit" [disabled]="form.invalid" class="btn btn-primary" (click)="onSave()">Sign in</button>
+        </form>
+    </div>
+</div>
