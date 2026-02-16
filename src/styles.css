@@ -1,0 +1,209 @@
+/* You can add global styles to this file, and also import other style files */
+
+body {
+    background-color: #000000;
+    color: #ffffff;
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+html {
+    background-color: #000000;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/* Override PrimeNG default backgrounds */
+.p-component {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+}
+
+.p-inputtext {
+    background-color: #1a1a1a !important;
+    color: #ffffff !important;
+    border-color: #444 !important;
+}
+
+.p-inputtext:enabled:focus {
+    border-color: #007bff !important;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25) !important;
+}
+
+.p-inputtext:enabled:hover {
+    border-color: #666 !important;
+}
+
+.p-inputtext[readonly] {
+    background-color: #2a2a2a !important;
+    opacity: 0.7;
+}
+
+.p-inputtextarea {
+    background-color: #1a1a1a !important;
+    color: #ffffff !important;
+    border-color: #444 !important;
+}
+
+.p-inputtextarea:enabled:focus {
+    border-color: #007bff !important;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25) !important;
+}
+
+.p-inputtextarea:enabled:hover {
+    border-color: #666 !important;
+}
+
+.p-inputtextarea[readonly] {
+    background-color: #2a2a2a !important;
+    opacity: 0.7;
+}
+
+.p-autocomplete-panel {
+    background-color: #1a1a1a !important;
+    color: #ffffff !important;
+    border-color: #444 !important;
+}
+
+.p-autocomplete-items {
+    background-color: #1a1a1a !important;
+}
+
+.p-autocomplete-item {
+    color: #ffffff !important;
+}
+
+.p-autocomplete-item:hover {
+    background-color: #333 !important;
+}
+
+.p-autocomplete-item.p-highlight {
+    background-color: #007bff !important;
+    color: #ffffff !important;
+}
+
+.p-inputnumber-input {
+    background-color: #1a1a1a !important;
+    color: #ffffff !important;
+    border-color: #444 !important;
+}
+
+.p-datatable {
+    background-color: #000000 !important;
+}
+
+.p-datatable .p-datatable-header {
+    background-color: #1a1a1a !important;
+    color: #ffffff !important;
+    border-color: #444 !important;
+}
+
+.p-datatable .p-datatable-thead>tr>th {
+    background-color: #1a1a1a !important;
+    color: #ffffff !important;
+    border-color: #444 !important;
+}
+
+.p-datatable .p-datatable-tbody>tr {
+    background-color: #0a0a0a !important;
+    color: #ffffff !important;
+}
+
+.p-datatable .p-datatable-tbody>tr:nth-child(even) {
+    background-color: #1a1a1a !important;
+}
+
+.p-datatable .p-datatable-tbody>tr:hover {
+    background-color: #2a2a2a !important;
+}
+
+.p-datatable .p-datatable-tbody>tr>td {
+    border-color: #444 !important;
+    color: #ffffff !important;
+}
+
+.p-dialog {
+    background-color: #1a1a1a !important;
+    color: #ffffff !important;
+    border-color: #444 !important;
+}
+
+.p-dialog .p-dialog-header {
+    background-color: #1a1a1a !important;
+    color: #ffffff !important;
+    border-color: #444 !important;
+}
+
+.p-dialog .p-dialog-content {
+    background-color: #1a1a1a !important;
+    color: #ffffff !important;
+}
+
+.p-dialog .p-dialog-footer {
+    background-color: #1a1a1a !important;
+    border-color: #444 !important;
+}
+
+.p-button {
+    background-color: #007bff !important;
+    border-color: #007bff !important;
+    color: #ffffff !important;
+}
+
+.p-button:hover {
+    background-color: #0056b3 !important;
+    border-color: #0056b3 !important;
+}
+
+.p-button.p-button-text {
+    background-color: transparent !important;
+    color: #007bff !important;
+}
+
+.p-button.p-button-text:hover {
+    background-color: rgba(0, 123, 255, 0.1) !important;
+}
+
+.p-checkbox .p-checkbox-box {
+    background-color: #1a1a1a !important;
+    border-color: #444 !important;
+}
+
+.p-checkbox .p-checkbox-box.p-highlight {
+    background-color: #007bff !important;
+    border-color: #007bff !important;
+}
+
+label {
+    color: #ffffff !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: #ffffff !important;
+}
+
+p {
+    color: #ffffff !important;
+}
+
+/* Grid system compatibility */
+.grid {
+    background-color: transparent !important;
+}
+
+.field {
+    background-color: transparent !important;
+}
+
+.card {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+}
