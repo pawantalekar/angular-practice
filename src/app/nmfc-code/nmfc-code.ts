@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { DialogModule } from 'primeng/dialog';
+import { InputTextModule } from 'primeng/inputtext';
+import { Select } from 'primeng/select';
 
 export interface NmfcItem {
   code: string;
@@ -11,20 +14,27 @@ export interface NmfcItem {
 
 export interface NmfcGroup {
   code: string;
-  description: string; // Description of the first item or a common one
+  description: string;
   items: NmfcItem[];
   expanded: boolean;
 }
 
 @Component({
   selector: 'app-nmfc-code',
-  imports: [CommonModule, FormsModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    DialogModule,
+    InputTextModule,
+    Select
+  ],
   templateUrl: './nmfc-code.html',
   styleUrl: './nmfc-code.css',
 })
 export class NmfcCode {
   showPopup = false;
   selectedCode: string = '';
+  selectedDescription: string = '';
   searchTerm: string = '';
 
   // Mock Data
@@ -60,15 +70,12 @@ export class NmfcCode {
     });
 
     // 3. Convert to array
-    // Note: In a real app, we might want to preserve expansion state across searches better,
-    // but for this simple version, regenerating is okay. 
-    // Ideally we track 'expanded' state by code in a separate Set/Map.
     return Object.keys(groups).map(code => {
       const items = groups[code];
       const isExpanded = this._expandedGroups.has(code);
       return {
         code,
-        description: items[0].description, // Take the first description
+        description: items[0].description,
         items,
         expanded: isExpanded
       };
@@ -86,7 +93,8 @@ export class NmfcCode {
   }
 
   selectItem(item: NmfcItem) {
-    this.selectedCode = item.code; // Or formatted with class? "code | class"
+    this.selectedCode = item.code;
+    this.selectedDescription = item.description;
     this.closePopup();
   }
 
@@ -96,5 +104,9 @@ export class NmfcCode {
     } else {
       this._expandedGroups.add(group.code);
     }
+  }
+
+  clearSearch() {
+    this.searchTerm = '';
   }
 }
